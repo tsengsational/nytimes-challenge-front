@@ -3,7 +3,7 @@
     <div class="flip-container" :style="{zIndex: this.flippedIndex}" :class="{flip: flip}">
       <div class="flipper">
         <div class="front" @click="this.flipCard">
-          <articleCard class="bottom" :article="this.front" :language="language" />
+          <articleCard class="bottom" :article="this.front" :language="language" :index="index" />
         </div>
         <div class="back" @click="this.flipCard">
           <articleCard class="top" :article="this.back" :language="language" />

@@ -16,29 +16,28 @@
 
 <script>
 export default {
-  props: ["article", "language"],
+  props: ["article", "language", "index"],
   data: function(){
     return {
-      activeArticle: {}
     }
   },
   watch: {
-    article: function() {
-      console.log(this.language, this.article)
+
+  },
+  computed: {
+    activeArticle: function() {
+      console.log(this.language, this.article.english.headline, this.index)
       switch (this.language) {
         case "English":
-          this.activeArticle = this.article.english
+          return this.article.english
           break;
         case "Martian":
-          this.activeArticle = this.article.martian
+          return this.article.martian
           break;
         default:
-          this.activeArticle = this.article.english
           break;
       }
     },
-  },
-  computed: {
     hasMultimedia: function() {
       if (this.activeArticle.images) {
         return this.activeArticle.images.length > 0 ? true : false;

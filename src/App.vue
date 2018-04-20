@@ -86,6 +86,24 @@ var startArticles = [
       images: [],
       type: ""
     }
+  },
+  {
+    english: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
+    },
+    martian: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
+    }
   }
 ]
 
@@ -150,10 +168,8 @@ export default {
   },
   data: function(){
     return {
-      apiKey: config.articleSearch,
       fetchedArchives: false,
       articles: startArticles,
-      page: 0,
       resetPages: false,
       language: "English"
     }

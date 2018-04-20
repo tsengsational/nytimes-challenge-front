@@ -22,11 +22,6 @@ export default {
     ArticleCard,
     Page
   },
-  data: function() {
-    return {
-      indexViewed: 0,
-      }
-  },
   computed: {
     topArticle: function() {
       return this.articles[0]
@@ -36,8 +31,6 @@ export default {
       console.log("pageArticles: ", pageArticles)
       return pageArticles
     }
-  },
-  methods: {
   }
 }
 </script>
