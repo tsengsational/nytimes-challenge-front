@@ -36,6 +36,16 @@ export default {
     }
   },
   watch: {
+    flip: function (newState, oldState) {
+      if (newState === true) {
+        setTimeout(() => {
+          this.flippedIndex = this.index + 1
+          let indexViewed = this.index + 2
+        }, 600)
+      } else if (newState === false) {
+          this.flippedIndex = 999 - this.index
+      }
+    },
     resetPages: function (newState, oldState) {
       if (newState === true) {
         this.flip = false;
