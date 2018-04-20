@@ -3,10 +3,10 @@
     <div class="flip-container" :style="{zIndex: this.flippedIndex}" :class="{flip: flip}">
       <div class="flipper">
         <div class="front" @click="this.flipCard">
-          <articleCard class="bottom" :article="this.front" />
+          <articleCard class="bottom" :article="this.front" :language="language" />
         </div>
         <div class="back" @click="this.flipCard">
-          <articleCard class="top" :article="this.back" />
+          <articleCard class="top" :article="this.back" :language="language" />
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@ export default {
   components: {
       ArticleCard
     },
-  props: ['index', 'articles', 'resetPages'],
+  props: ['index', 'articles', 'resetPages', 'language'],
   data: function() {
     return {
       flip: false,
@@ -36,19 +36,6 @@ export default {
     }
   },
   watch: {
-    flip: function (newState, oldState) {
-      if (newState === true) {
-        setTimeout(() => {
-          this.flippedIndex = this.index + 1
-          let indexViewed = this.index + 2
-          this.$emit('pageFlip', indexViewed)
-
-        }, 600)
-      } else if (newState === false) {
-          this.flippedIndex = 999 - this.index
-          this.$emit('pageFlip', this.index)
-      }
-    },
     resetPages: function (newState, oldState) {
       if (newState === true) {
         this.flip = false;

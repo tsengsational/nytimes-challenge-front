@@ -1,38 +1,24 @@
 <template lang="html">
   <div class="nav">
     <img id="logo" src="https://int.nyt.com/assets/blogs/latest/images/foundation/logos/nyt-logo-185x26.svg" alt="">
-    <select class="section-select" name="section" @change="this.handleSelect" >
-      <option value="" disabled selected="">Select Section</option>
-      <option value="all">All</option>
-      <option v-for="(section, key) in sections" :key="key" :value="section">{{section}}</option>
+    <select class="language-select" name="language" @change="this.handleSelect" >
+      <option v-for="(language, key) in languages" :key="key" :value="language">{{language}}</option>
     </select>
+    <div class="archives">
+      <button type="button" name="archives" @click="handleButtonClick">Get Archives</button>
+    </div>
 
   </div>
 </template>
 
 <script>
 export default {
-  props: ["handleSelect"],
+  props: ["handleSelect", "handleButtonClick"],
   data: function() {
     return {
-      sections: [
-        "Arts",
-        'Books',
-        'Business Day',
-        "Education",
-        'Food',
-        'Movies',
-        'Obituaries',
-        'Science',
-        'Sports',
-        'Style',
-        'Technology',
-        'The Upshot',
-        'Theater',
-        'Travel',
-        'U.S.',
-        'World',
-        'Your Money'
+      languages: [
+        "English",
+        'Martian',
       ]
     }
   }
@@ -54,7 +40,7 @@ export default {
     left: 6%;
     top: 16px;
   }
-  .section-select {
+  .language-select {
     appearance: none;
     background-color: transparent;
     border: 1px solid gray;
@@ -82,7 +68,7 @@ export default {
     #logo {
 
     }
-    .selection-select {
+    .language-select {
       width: 25%;
     }
   }

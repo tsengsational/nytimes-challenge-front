@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Instructions/>
-    <Nav :handleSelect="handleSelect" />
-    <Carousel :articles="articles" :getMore="getMore" :resetPages="resetPages" />
+    <Nav :handleSelect="handleSelect" :handleButtonClick="handleButtonClick" />
+    <Carousel :articles="articles" :resetPages="resetPages" :language="language" />
     <Footer/>
   </div>
 </template>
@@ -16,36 +16,76 @@ import Instructions from './components/Instructions'
 
 var startArticles = [
   {
-    headline: {
-      main: ""
+    english: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
     },
-    byline: "",
-    snippet: "",
-    multimedia: []
+    martian: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
+    }
   },
   {
-    headline: {
-      main: ""
+    english: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
     },
-    byline: "",
-    snippet: "",
-    multimedia: []
+    martian: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
+    }
   },
   {
-    headline: {
-      main: ""
+    english: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
     },
-    byline: "",
-    snippet: "",
-    multimedia: []
+    martian: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
+    }
   },
   {
-    headline: {
-      main: ""
+    english: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
     },
-    byline: "",
-    snippet: "",
-    multimedia: []
+    martian: {
+      headline: "",
+      url: "",
+      byline: "",
+      summary: "",
+      images: [],
+      type: ""
+    }
   }
 ]
 
@@ -57,37 +97,32 @@ export default {
     Footer,
     Instructions
   },
-  watch: {
-    selected: function (newSelect, oldSelect) {
-        this.page = 0
-        let url = this.getURL(newSelect)
-        this.getArticles(url, "start")
-    }
-  },
   methods: {
+    handleButtonClick: function (e) {
+      if (this.fetchedArchives === false) {
+        this.fetchedArchives = true;
+        let url = this.getURL("/more")
+        this.getArticles(url, "update")
+      }
+    },
     handleSelect: function (e) {
       let value = e.target.value
-      this.selected = value
+      this.language = value
     },
-    getURL: function(sectionName = "") {
+    getURL: function(route = "/api") {
       let url = config.endpoint
-      url += "?"
-      url += `&page=${this.page}`
-      url += '&fq=source:("The New York Times")'
-      if (sectionName.length > 0 && sectionName !== "all") {
-        url += ` AND section_name:("${sectionName}")`
-      } else {
-        url += ' AND section_name:("Multimedia/Photos")'
-      }
-      return url += `&sort=newest&api-key=${this.apiKey}`
+      return url += route
     },
-    getArticles: function(url, callback = null) {
+    getArticles: function(url, action = null) {
+      console.log(url)
       return fetch(url)
         .then(response => {
+          console.log("fetched response: ", response)
           return response.json()
         })
         .then(json => {
-          switch (callback) {
+          console.log("parsed response: ", json)
+          switch (action) {
             case "start":
               this.resetPages = true
               this.populateStart(json);
@@ -99,32 +134,28 @@ export default {
               this.populateArticles(json);
               break;
             default:
-              console.log('no callback')
+              console.log('no action')
               break;
           }
         })
     },
     populateArticles: function(json) {
-      const articles = json.response.docs
+      const articles = json
       this.articles = this.articles.concat(articles)
     },
     populateStart: function(json) {
-      const articles = json.response.docs
+      const articles = json
       this.articles = articles
-    },
-    getMore: function() {
-      this.page++
-      let url = this.getURL(this.selected)
-      return this.getArticles(url, "update")
     }
   },
   data: function(){
     return {
       apiKey: config.articleSearch,
-      selected: "",
+      fetchedArchives: false,
       articles: startArticles,
       page: 0,
-      resetPages: false
+      resetPages: false,
+      language: "English"
     }
   },
   created: function(){

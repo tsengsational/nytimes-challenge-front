@@ -3,47 +3,63 @@
     <div class="headline">
       <div class="image" v-if="hasMultimedia" v-bind:style="imageStyle" >
       </div>
-      <span v-html="this.article.headline.main" ></span>
+      <span v-html="this.activeArticle.headline" ></span>
     </div>
     <div class="byline">
-      {{this.article.byline.original}}
+      {{this.activeArticle.byline}}
     </div>
     <div class="snippet">
-      <span class="text" v-html="this.article.snippet" ></span><span><a :href="article.web_url" >Read more...</a></span>
+      <span class="text" v-html="this.activeArticle.summary" ></span><span><a :href="this.activeArticle.url" >Read more...</a></span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["article"],
+  props: ["article", "language"],
   data: function(){
     return {
-
+      activeArticle: {}
     }
   },
+  watch: {
+    article: function() {
+      console.log(this.language, this.article)
+      switch (this.language) {
+        case "English":
+          this.activeArticle = this.article.english
+          break;
+        case "Martian":
+          this.activeArticle = this.article.martian
+          break;
+        default:
+          this.activeArticle = this.article.english
+          break;
+      }
+    },
+  },
   computed: {
-    hasMultimedia: function(){
-      if (this.article.multimedia) {
-        return this.article.multimedia.length > 0 ? true : false;
+    hasMultimedia: function() {
+      if (this.activeArticle.images) {
+        return this.activeArticle.images.length > 0 ? true : false;
       } else {
         return false
       }
     },
     largeImage: function() {
-      return this.article.multimedia.find(function(element){
-        return element.crop_name === "articleLarge"
+      return this.activeArticle.images[0].types.find(function(element){
+        return element.type === "jumbo"
       });
     },
     thumbImage: function() {
-      return this.article.multimedia.find(function(element){
-        return element.crop_name === "thumbStandard"
+      return this.activeArticle.images[0].types.find(function(element){
+        return element.type === "thumbStandard"
       });
     },
     imageStyle: function() {
       if (window.innerWidth >= 450) {
         return {
-          backgroundImage: `url(https://static01.nyt.com/${this.largeImage.url})`,
+          backgroundImage: `url(https://static01.nyt.com/${this.largeImage.content})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           width: '400px',
@@ -51,7 +67,7 @@ export default {
         }
       } else {
         return {
-          backgroundImage: `url(https://static01.nyt.com/${this.thumbImage.url})`,
+          backgroundImage: `url(https://static01.nyt.com/${this.thumbImage.content})`,
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
           width: '75px',
