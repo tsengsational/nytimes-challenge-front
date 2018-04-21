@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <Instructions/>
-    <Nav :handleSelect="handleSelect" :handleButtonClick="handleButtonClick" />
-    <Carousel :articles="articles" :resetPages="resetPages" :language="language" />
+    <Nav :handleSelect="handleSelect" :handleButtonClick="handleButtonClick" :handleReset="handleReset" />
+    <Carousel :articles="articles" :language="language" :resetPages="resetPages" />
     <Footer/>
   </div>
 </template>
@@ -116,12 +116,18 @@ export default {
     Instructions
   },
   methods: {
-    handleButtonClick: function (e) {
+    handleButtonClick: function () {
       if (this.fetchedArchives === false) {
         this.fetchedArchives = true;
         let url = this.getURL("/more")
         this.getArticles(url, "update")
       }
+    },
+    handleReset: function() {
+      this.resetPages = !this.resetPages
+      setTimeout(function () {
+        this.resetPages = !this.resetPages
+      }, 600);
     },
     handleSelect: function (e) {
       let value = e.target.value
@@ -132,14 +138,11 @@ export default {
       return url += route
     },
     getArticles: function(url, action = null) {
-      console.log(url)
       return fetch(url)
         .then(response => {
-          console.log("fetched response: ", response)
           return response.json()
         })
         .then(json => {
-          console.log("parsed response: ", json)
           switch (action) {
             case "start":
               this.resetPages = true

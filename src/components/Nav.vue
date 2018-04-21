@@ -1,19 +1,31 @@
 <template lang="html">
   <div class="nav">
-    <img id="logo" src="https://int.nyt.com/assets/blogs/latest/images/foundation/logos/nyt-logo-185x26.svg" alt="">
-    <select class="language-select" name="language" @change="this.handleSelect" >
+    <img id="logo" @click="handleReset" src="https://int.nyt.com/assets/blogs/latest/images/foundation/logos/nyt-logo-185x26.svg" alt="">
+    <select class="language-select" name="language" @change="handleSelect" >
       <option v-for="(language, key) in languages" :key="key" :value="language">{{language}}</option>
     </select>
     <div class="archives">
-      <button type="button" name="archives" @click="handleButtonClick">Get Archives</button>
+
+      <button type="button" name="archives" @click="handleButtonClick"> <font-awesome-icon :icon="archive" /> <span class="label"> Archives</span></button>
     </div>
 
   </div>
 </template>
 
 <script>
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import faArchive from '@fortawesome/fontawesome-free-solid/faArchive'
+
 export default {
-  props: ["handleSelect", "handleButtonClick"],
+  components: {
+    FontAwesomeIcon
+  },
+  computed: {
+    archive: () => {
+      return faArchive
+    }
+  },
+  props: ["handleSelect", "handleButtonClick", 'handleReset'],
   data: function() {
     return {
       languages: [
@@ -33,6 +45,29 @@ export default {
     height: 58px;
     border-bottom: $gray_border;
   }
+  .archives button {
+    padding: 7px 10px;
+    border: 1px solid $times_dark_blue;
+    font-family: $font_bold;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: $times_blue;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color .1s, background-color .1s;
+    position: absolute;
+    right: 27%;
+    margin-top: .75rem;
+    margin-bottom: .75rem;
+    .label {
+      display: none;
+    }
+    &:hover {
+      color: $times_blue;
+      background-color: white;
+    }
+  }
   #logo {
     max-height: 34px;
     max-width: 50%;
@@ -43,18 +78,18 @@ export default {
   .language-select {
     appearance: none;
     background-color: transparent;
-    border: 1px solid gray;
+    border: $gray_border;
     font-family: Georgia, serif;
-    font-size: 16px;
+    font-size: 12px;
     font-weight: 300;
-    padding-left: 15px;
+    padding-left: 7px;
     cursor: pointer;
     height: 34px;
     margin-top: .75rem;
     margin-bottom: .75rem;
     position: absolute;
-    right: 7%;
-    width: 33%;
+    right: 5%;
+    width: 20%;
     user-select: none;
     z-index: 3;
     -ms-user-select: none;
@@ -65,10 +100,14 @@ export default {
   }
 
   @media (min-width: 450px) {
-    #logo {
-
+    .archives button {
+      right: 33%;
+      .label {
+        display: inline;
+      }
     }
     .language-select {
+      padding-left: 15px;
       width: 25%;
     }
   }

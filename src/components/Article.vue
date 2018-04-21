@@ -9,7 +9,7 @@
       {{this.activeArticle.byline}}
     </div>
     <div class="snippet">
-      <span class="text" v-html="this.activeArticle.summary" ></span><span><a :href="this.activeArticle.url" >Read more...</a></span>
+      <span class="text" v-html="this.activeArticle.summary" ></span><span v-if="this.activeArticle.summary.length > 0"><a :href="this.activeArticle.url" >Read more...</a></span>
     </div>
   </div>
 </template>
@@ -26,7 +26,6 @@ export default {
   },
   computed: {
     activeArticle: function() {
-      console.log(this.language, this.article.english.headline, this.index)
       switch (this.language) {
         case "English":
           return this.article.english

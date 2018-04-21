@@ -17,7 +17,7 @@ import ArticleCard from "./Article"
 import Page from "./Page"
 
 export default {
-  props: ["articles", 'resetPages', 'language'],
+  props: ["articles", "resetPages", 'language'],
   components: {
     ArticleCard,
     Page

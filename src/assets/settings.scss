@@ -1,8 +1,18 @@
 $font_header: "nyt-cheltenham";
+$font_bold: "nyt-franklin";
 $gray_border: 1px solid #e2e2e2;
 $article_height: calc(100vh - 58px - 30px);
+$times_blue: #6288A5;
+$times_dark_blue: #4D7B9F;
 
 @font-face {
   font-family: "nyt-cheltenham";
   src: url("https://typeface.nyt.com/fonts/nyt-cheltenham-700-normal.woff");
+}
+
+@font-face {
+  font-family: "nyt-franklin";
+  font-style: normal;
+  font-weight: 700;
+  src: url("https://typeface.nyt.com/fonts/nyt-franklin-700-normal.woff") format("woff");
 }
