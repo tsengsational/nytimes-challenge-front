@@ -5,7 +5,6 @@
       <option v-for="(language, key) in languages" :key="key" :value="language">{{language}}</option>
     </select>
     <div class="archives">
-
       <button type="button" name="archives" @click="handleButtonClick"> <font-awesome-icon :icon="archive" /> <span class="label"> Archives</span></button>
     </div>
 
