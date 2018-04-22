@@ -1,12 +1,12 @@
 <template lang="html">
-  <div class="article">
+  <div class="article-list-item">
     <div class="headline">
       <div class="image" v-if="hasMultimedia" v-bind:style="imageStyle" >
       </div>
       <span v-html="this.activeArticle.headline" ></span>
     </div>
     <div class="byline">
-      {{this.activeArticle.byline}}
+      {{activeArticle.byline}}
     </div>
     <div class="snippet">
       <span class="text" v-html="this.activeArticle.summary" ></span><span v-if="this.activeArticle.summary.length > 0"><a :href="this.activeArticle.url" >Read more...</a></span>
@@ -16,10 +16,7 @@
 
 <script>
 export default {
-  props: ["article", "language", "index"],
-  watch: {
-
-  },
+  props: ["article", "language"],
   computed: {
     activeArticle: function() {
       switch (this.language) {
@@ -74,19 +71,15 @@ export default {
 </script>
 
 <style lang="scss">
-  .article {
-    background-color: white;
-    width: 100vw;
-    height: 43vh;
-    box-sizing: border-box;
-    padding: 30px 0;
+  .article-list-item {
+    padding: 30px 12px 30px 12px;
+    border-bottom: 1px solid #e2e2e2;
     .headline {
       .image {
         display: inline-block;
+        margin-right: 10px;
       }
-      border-bottom: 1px solid #e2e2e2;
       margin: 0 auto 6px;
-      width: 90%;
       text-align: left;
       font-size: 1.15rem;
       line-height: 1.25rem;
@@ -94,20 +87,17 @@ export default {
       span {
         display: inline-block;
         width: calc(90vw - 90px);
-        margin-left: 10px;
         vertical-align: top;
       }
     }
     .byline {
       text-align: left;
-      width: 90%;
       margin: 0 auto 16px;
       text-transform: uppercase;
       font-size: 12px;
       font-weight: 100;
     }
     .snippet {
-      width: 90%;
       margin: 0 auto;
       text-align: left;
       font-size: 14px;
@@ -119,7 +109,7 @@ export default {
   }
 
   @media (min-width: 450px) {
-    .article {
+    .article-list-item {
       width: 50vw;
       .headline {
         .image {
@@ -148,5 +138,4 @@ export default {
       }
     }
   }
-
 </style>

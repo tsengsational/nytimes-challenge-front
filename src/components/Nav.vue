@@ -7,13 +7,20 @@
     <div class="archives">
       <button type="button" name="archives" @click="handleButtonClick"> <font-awesome-icon :icon="archive" /> <span class="label"> Archives</span></button>
     </div>
-
+    <div class="toggle-view" @change="handleToggle">
+      <span class="icon"><font-awesome-icon :icon="list" /></span>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div>
   </div>
 </template>
 
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import faArchive from '@fortawesome/fontawesome-free-solid/faArchive'
+import faList from '@fortawesome/fontawesome-free-solid/faList'
 
 export default {
   components: {
@@ -22,9 +29,12 @@ export default {
   computed: {
     archive: () => {
       return faArchive
+    },
+    list: () => {
+      return faList
     }
   },
-  props: ["handleSelect", "handleButtonClick", 'handleReset'],
+  props: ["handleSelect", "handleButtonClick", 'handleReset', 'handleToggle'],
   data: function() {
     return {
       languages: [
@@ -38,11 +48,16 @@ export default {
 
 <style lang="scss">
   @import "../assets/settings.scss";
+  $toggle_size: 16px;
 
   .nav {
+    position: sticky;
+    top: 0;
     box-sizing: border-box;
     height: 58px;
+    background-color: white;
     border-bottom: $gray_border;
+    z-index: 1;
   }
   .archives button {
     padding: 7px 10px;
@@ -69,10 +84,10 @@ export default {
   }
   #logo {
     max-height: 34px;
-    max-width: 50%;
+    max-width: 40%;
     position: absolute;
     left: 6%;
-    top: 16px;
+    top: 20px;
   }
   .language-select {
     appearance: none;
@@ -98,12 +113,89 @@ export default {
     -webkit-appearance: none;
   }
 
+  .toggle-view {
+    position:absolute;
+    margin-top: .75rem;
+    right: calc(27% + 44px );
+    .icon {
+      font-size: 24px;
+      display: none;
+      position: relative;
+      top: 2.5px;
+      right: 5px;
+    }
+
+    .switch {
+    position: relative;
+    display: inline-block;
+    top: 5px;
+    width: 40px;
+    height: 24px;
+    input {
+      display: none;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      // margin-top: 5px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: $toggle_size;
+      width: $toggle_size;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: $times_blue;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px $times_dark_blue;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX($toggle_size);
+      -ms-transform: translateX($toggle_size);
+      transform: translateX($toggle_size);
+    }
+
+    .slider.round {
+      border-radius: 34px;
+    }
+
+    .slider.round:before {
+      border-radius: 50%;
+    }
+  }
+  }
+
+
   @media (min-width: 450px) {
     .archives button {
       right: 33%;
       .label {
         display: inline;
       }
+    }
+    .toggle-view {
+      .icon {
+        display: inline-block;
+      }
+      right: calc(33%  + 140px);
     }
     .language-select {
       padding-left: 15px;

@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="carousel">
+  <div class="carousel" :class="{hide: toHide}">
     <div class="first" >
       <articleCard class="top" :article="this.topArticle" :language="language"/>
     </div>
@@ -17,7 +17,7 @@ import ArticleCard from "./Article"
 import Page from "./Page"
 
 export default {
-  props: ["articles", "resetPages", 'language'],
+  props: ["articles", "resetPages", 'language', 'currentView'],
   components: {
     ArticleCard,
     Page
@@ -28,8 +28,10 @@ export default {
     },
     pageArticles: function() {
       let pageArticles = this.articles.slice(1, this.articles.length)
-      console.log("pageArticles: ", pageArticles)
       return pageArticles
+    },
+    toHide: function() {
+      return this.currentView === "Book" ? false : true;
     }
   }
 }
@@ -37,7 +39,9 @@ export default {
 
 <style lang="scss">
   @import "../assets/settings.scss";
-
+  .hide {
+    display: none;
+  }
   .hidden {
     opacity: 0;
   }

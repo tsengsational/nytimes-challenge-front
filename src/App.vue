@@ -1,9 +1,12 @@
 <template>
-  <div id="app">
-    <Instructions/>
-    <Nav :handleSelect="handleSelect" :handleButtonClick="handleButtonClick" :handleReset="handleReset" />
-    <Carousel :articles="articles" :language="language" :resetPages="resetPages" />
-    <Footer/>
+  <div id="app" :class="{list: list}">
+    <div class="wrapper">
+      <Instructions/>
+      <Nav :handleToggle="handleToggle" :handleSelect="handleSelect" :handleButtonClick="handleButtonClick" :handleReset="handleReset" />
+      <Carousel :articles="articles" :language="language" :resetPages="resetPages" :currentView="currentView"/>
+      <List :currentView="currentView" :articles="articles" :language="language"/>
+      <Footer/>
+    </div>
   </div>
 </template>
 
@@ -13,6 +16,7 @@ import Carousel from './components/Carousel'
 import config from './config'
 import Footer from './components/Footer'
 import Instructions from './components/Instructions'
+import List from './components/List'
 
 var startArticles = [
   {
@@ -113,7 +117,22 @@ export default {
     Nav,
     Carousel,
     Footer,
-    Instructions
+    Instructions,
+    List
+  },
+  data: function(){
+    return {
+      fetchedArchives: false,
+      articles: startArticles,
+      resetPages: false,
+      language: "English",
+      currentView: "Book"
+    }
+  },
+  computed: {
+    list: function () {
+      return this.currentView === "List" ? true : false;
+    }
   },
   methods: {
     handleButtonClick: function () {
@@ -132,6 +151,17 @@ export default {
     handleSelect: function (e) {
       let value = e.target.value
       this.language = value
+    },
+    handleToggle: function (e) {
+      let checked = e.target.checked
+      if (checked) {
+        this.currentView = "List"
+      } else {
+        let wrapper = document.querySelector('.wrapper')
+        wrapper.scrollTop = 0
+        this.handleReset()
+        this.currentView = "Book"
+      }
     },
     getURL: function(route = "/api") {
       let url = config.endpoint
@@ -169,14 +199,6 @@ export default {
       this.articles = articles
     }
   },
-  data: function(){
-    return {
-      fetchedArchives: false,
-      articles: startArticles,
-      resetPages: false,
-      language: "English"
-    }
-  },
   created: function(){
     let url = this.getURL()
     this.getArticles(url, "start")
@@ -188,8 +210,17 @@ export default {
 @import "assets/settings.scss";
 
 #app {
-  height: 100vh;
-  overflow: hidden;
+  &.list {
+    .wrapper {
+      overflow: auto;
+    }
+  }
+  .wrapper {
+    box-sizing: border-box;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
   font-family: $font_header;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
