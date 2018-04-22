@@ -23,7 +23,7 @@ npm run serve
 This should start the Vue development server on `localhost:8080`.
 
 **NOTE:**
-If your machine's local IP address is not `127.0.0.1`, you will need to change the IP address in the config file located in `./src/config.js`
+If your machine's local IP address is not `127.0.0.1`, you will need to change the IP address in the config file located in `src/config.js`
 
 ## Known Issues:
 - When emulating mobile devices using browser dev tools, article images will initially be sized for desktop mode. Requires a reload to resize. This is mostly an edge case since most devices requiring mobile views will have properly sized images on load. More an issue for dev environment.
