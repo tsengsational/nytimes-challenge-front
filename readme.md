@@ -4,7 +4,7 @@ This is a web application built with Vue.js that takes in data using a backend a
 
 ## Getting Started
 
-Clone the backend api, available (here)[https://github.com/tsengsational/nytimes-challenge-api]. And run the following command:
+Clone the backend api, available [here](https://github.com/tsengsational/nytimes-challenge-api). And run the following command:
 
 ```
 npm install
@@ -28,4 +28,4 @@ If your machine's local IP address is not `127.0.0.1`, you will need to change t
 ## Known Issues:
 - When emulating mobile devices using browser dev tools, article images will initially be sized for desktop mode. Requires a reload to resize. This is mostly an edge case since most devices requiring mobile views will have properly sized images on load. More an issue for dev environment.
 - When translating from English to Martian, I assumed that numbers were not to be translated.
-- When toggling back and forth between List and Book views, the app scrolls to the top of the page in order for the Book pages to be visible. It also resets the pages and unflips them when toggling back to Book view. This might be an issue for readers who might feel that they lose their position. 
+- When toggling back and forth between List and Book views, the app scrolls to the top of the page in order for the Book pages to be visible. It also resets the pages and unflips them when toggling back to Book view. This might be an issue for readers who might feel that they lose their position.
