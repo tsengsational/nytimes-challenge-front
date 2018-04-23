@@ -126,8 +126,11 @@ export default {
       transform: rotate(180deg);
     }
   }
+  @media (min-width: 600) {
+    
+  }
 
-  @media (min-width: 450px) {
+  @media (min-width: 800px) {
     .flip-container {
       position:absolute;
       right: 0;

@@ -106,7 +106,11 @@ export default {
     }
   }
 
-  @media (min-width: 450px) {
+  @media (min-width: 600px) {
+    
+  }
+
+  @media (min-width: 800px) {
     .article-list-item {
       width: 50vw;
       .headline {

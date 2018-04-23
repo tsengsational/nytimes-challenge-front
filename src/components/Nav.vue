@@ -183,8 +183,25 @@ export default {
   }
   }
 
+  @media (min-width: 600px) {
+    .archives button {
+      .label {
+        display: none;
+      }
+    }
 
-  @media (min-width: 450px) {
+    #logo {
+      top: 15px;
+    }
+    .toggle-view {
+      .icon {
+        display: inline-block;
+      }
+    }
+  }
+
+
+  @media (min-width: 800px) {
     .archives button {
       right: 33%;
       .label {

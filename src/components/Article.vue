@@ -45,13 +45,18 @@ export default {
         return element.type === "jumbo"
       });
     },
+    mediumImage: function() {
+      return this.activeArticle.images[0].types.find(function(element){
+        return element.type === "sfSpan"
+      });
+    },
     thumbImage: function() {
       return this.activeArticle.images[0].types.find(function(element){
         return element.type === "thumbStandard"
       });
     },
     imageStyle: function() {
-      if (window.innerWidth >= 450) {
+      if (window.innerWidth >= 800) {
         return {
           backgroundImage: `url(https://static01.nyt.com/${this.largeImage.content})`,
           backgroundPosition: 'center',
@@ -59,7 +64,16 @@ export default {
           width: '400px',
           height: '286px'
         }
-      } else {
+      } else if (window.innerWidth >= 600 && window.innerWidth < 800) {
+        return {
+          backgroundImage: `url(https://static01.nyt.com/${this.mediumImage.content})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          width: '395px',
+          height: '263px'
+        }
+      }
+      else {
         return {
           backgroundImage: `url(https://static01.nyt.com/${this.thumbImage.content})`,
           backgroundPosition: 'center',
@@ -118,7 +132,22 @@ export default {
     }
   }
 
-  @media (min-width: 450px) {
+  @media (min-width: 600px) {
+    .article {
+      height: 45vh;
+      .headline, .byline, .snippet {
+        width: 75vw;
+      }
+      .headline {
+        span {
+          width: 100%;
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 800px) {
     .article {
       width: 50vw;
       .headline {

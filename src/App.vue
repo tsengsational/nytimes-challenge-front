@@ -70,18 +70,27 @@ export default {
       this.language = value
     },
     handleToggle: function (e) {
+      // setting the currentView toggles between displaying the Carousel and List components
       let checked = e.target.checked
       if (checked) {
+        // get all the article-list-item elements and find the element to scroll to.
+        // get the offsetTop of the element and set the wrapper element's scroll position
+        // to equal the desired element to be scrolled to.
         this.currentView = "List"
         let scroll = 0
         setTimeout( () => {
           let articleListItems = this.wrapper.querySelectorAll(".article-list-item")
           let articleToScroll = articleListItems[this.articleIndex]
-          console.log('scrolling to article ', this.articleIndex)
           scroll = articleToScroll.offsetTop
           this.wrapper.scrollTop = scroll
         }, 5);
       } else {
+        // get the scroll position of the wrapper element,
+        // get all the article-list-item elements and determine which ones have been scrolled past.
+        // Push all the elements scrolled past into an array.
+        // Get the index of the last element in the array and set flipToIndex equal to that.
+        // flipToIndex is a prop that is passed down to each Page component, which will
+        // determine if each page should be flipped or not.
         let scrollY = this.wrapper.scrollTop
         let articleListItems = this.wrapper.querySelectorAll(".article-list-item")
         let articlesScrolledPast = []
@@ -93,14 +102,10 @@ export default {
           }
           articlesScrolledPast.push(articleListItems[i])
         }
-        console.log('scrolled past ', articlesScrolledPast.length)
         if (articlesScrolledPast.length > 1) {
           this.flipToIndex = articlesScrolledPast.length - 1
-          console.log('flipping to page ', this.flipToIndex)
         } else {
           this.flipToIndex = 0
-          console.log('flipping to page ', this.flipToIndex)
-
         }
         this.wrapper.scrollTop = 0
         this.currentView = "Book"

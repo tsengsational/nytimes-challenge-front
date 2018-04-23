@@ -35,7 +35,16 @@ export default {
     }
   }
 
-  @media (min-width: 450px) {
+  @media (min-width: 600px) {
+    .list {
+      .list-wrapper {
+        width: 75%;
+        left: 12.5%;
+      }
+    }
+  }
+
+  @media (min-width: 800px) {
     .list {
       .list-wrapper {
         width: 50%;
