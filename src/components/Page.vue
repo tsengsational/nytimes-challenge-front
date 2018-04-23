@@ -41,13 +41,11 @@ export default {
         setTimeout(() => {
           let indexViewed = this.index + 1
           this.flippedIndex = indexViewed
-          console.log("flipping to page ",this.flippedIndex)
           this.$emit('pageFlip', indexViewed)
         }, 600)
       } else if (newState === false) {
           this.flippedIndex = 999 - this.index
           let indexViewed = this.index + 1
-          console.log("unflipping to page ", indexViewed)
           this.$emit('pageFlip', indexViewed)
       }
     },
@@ -127,7 +125,7 @@ export default {
     }
   }
   @media (min-width: 600) {
-    
+
   }
 
   @media (min-width: 800px) {

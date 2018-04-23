@@ -16,7 +16,6 @@ export default {
   props: ["articles", "language", "currentView"],
   computed: {
     toHide: function() {
-      console.log(this.currentView)
       return this.currentView === "List" ? false : true;
     }
   }
