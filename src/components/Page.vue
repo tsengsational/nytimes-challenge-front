@@ -20,7 +20,7 @@ export default {
   components: {
       ArticleCard
     },
-  props: ['index', 'articles', 'resetPages', 'language'],
+  props: ['index', 'articles', 'resetPages', 'language', 'flipToIndex'],
   data: function() {
     return {
       flip: false,
@@ -39,16 +39,32 @@ export default {
     flip: function (newState, oldState) {
       if (newState === true) {
         setTimeout(() => {
-          this.flippedIndex = this.index + 1
-          let indexViewed = this.index + 2
+          let indexViewed = this.index + 1
+          this.flippedIndex = indexViewed
+          console.log("flipping to page ",this.flippedIndex)
+          this.$emit('pageFlip', indexViewed)
         }, 600)
       } else if (newState === false) {
           this.flippedIndex = 999 - this.index
+          let indexViewed = this.index + 1
+          console.log("unflipping to page ", indexViewed)
+          this.$emit('pageFlip', indexViewed)
       }
     },
-    resetPages: function (newState, oldState) {
+    resetPages: function (newState) {
       if (newState === true) {
         this.flip = false;
+      }
+    },
+    flipToIndex: function (newIndex) {
+      if (newIndex - 1 === this.index) {
+        this.flip = false
+      } else if (newIndex - 1 === this.index + 1) {
+        this.flip = true
+      } else if (newIndex - 1 > this.index + 1) {
+        this.flip = true
+      } else if (newIndex - 1 < this.index) {
+        this.flip = false
       }
     }
   },

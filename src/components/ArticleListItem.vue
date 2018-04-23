@@ -22,10 +22,8 @@ export default {
       switch (this.language) {
         case "English":
           return this.article.english
-          break;
         case "Martian":
           return this.article.martian
-          break;
         default:
           break;
       }

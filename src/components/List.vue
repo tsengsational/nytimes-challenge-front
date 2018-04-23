@@ -14,11 +14,6 @@ export default {
     ArticleListItem
   },
   props: ["articles", "language", "currentView"],
-  data: function () {
-    return {
-
-    }
-  },
   computed: {
     toHide: function() {
       console.log(this.currentView)
